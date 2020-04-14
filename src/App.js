@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-export default App;
-=======
 import React from 'react';
 import './App.scss';
 // import { Nav } from './features/nav/Nav';
@@ -42,10 +14,12 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import InputBase from '@material-ui/core/InputBase';
+
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const drawerWidth = 240;
 
@@ -137,7 +111,7 @@ function App() {
           <div className={classes.root}>
             <CssBaseline />
 
-            <AppBar position="static">
+            <AppBar position="fixed" className={classes.appBar}>
               <Toolbar>
                 <Typography className={classes.title} variant="h6" noWrap>
 
@@ -171,7 +145,7 @@ function App() {
               <List>
                 {['Jobs', 'RFQs', 'POs', 'Invoices'].map((text, index) => (
                   <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemIcon>{<InboxIcon />}</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
@@ -180,7 +154,7 @@ function App() {
               <List>
                 {['Items', 'Customers', 'Suppliers'].map((text, index) => (
                   <ListItem button key={text}>
-                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                    <ListItemIcon>{index === 1 ? <AccountBoxIcon /> : <MailIcon />}</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
@@ -198,4 +172,3 @@ function App() {
 }
 
 export default App;
->>>>>>> 6808944e8c942b49eb96910ca942b0ad77826284
