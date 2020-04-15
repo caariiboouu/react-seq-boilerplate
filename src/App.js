@@ -1,6 +1,10 @@
 import React from 'react';
+import { ThemeProvider } from '@material-ui/styles';
+import theme from './theme';
 import './App.scss';
 // import { Nav } from './features/nav/Nav';
+import { CustomizedBreadcrumbs } from './features/breadcrumbs/Breadcrumbs';
+import { MaterialTableFull } from './features/materialtable/MaterialTable';
 
 import Container from '@material-ui/core/Container';
 import { fade, makeStyles } from '@material-ui/core/styles';
@@ -16,9 +20,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InputBase from '@material-ui/core/InputBase';
 
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import SearchIcon from '@material-ui/icons/Search';
+import FolderIcon from '@material-ui/icons/Folder';
+import ReceiptIcon from '@material-ui/icons/Receipt';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const drawerWidth = 240;
@@ -30,20 +34,38 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
+    backgroundColor: '#2f4353',
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+
   },
   drawerPaper: {
     width: drawerWidth,
+    color:'#fff',
+    backgroundColor:'#37546a',
   },
+  listItemIcons: {
+    color:'#fff',
+  },
+
   // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
+  toolbar: {
+    background:'#fafafa',
+    '& img': {
+      maxHeight: '2.55rem',
+      margin: '0.7rem 0 0;',
+    }
+  },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
     padding: theme.spacing(3),
+    margin:'4rem 0 2rem 13.6rem',
+  },
+  breadcrumbsPositioning: {
+    marginBottom:'2rem',
   },
 
 
@@ -84,7 +106,8 @@ const useStyles = makeStyles((theme) => ({
     color: 'inherit',
   },
   inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
+    padding: '0rem 0rem 1rem 3.7rem',
+    marginTop:'1rem',
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
@@ -101,12 +124,11 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
 
-
   return (
+    <ThemeProvider theme={theme}>
     <div className="App">
       <Container maxWidth="xl">
         <header className="App-header">
-
 
           <div className={classes.root}>
             <CssBaseline />
@@ -140,12 +162,17 @@ function App() {
               }}
               anchor="left"
             >
-              <div className={classes.toolbar} />
+              <div className={classes.toolbar}>
+                <img src="/logo.png" alt="Tulsa Heaters Inc." />
+              </div>
               <Divider />
               <List>
                 {['Jobs', 'RFQs', 'POs', 'Invoices'].map((text, index) => (
                   <ListItem button key={text}>
-                    <ListItemIcon>{<InboxIcon />}</ListItemIcon>
+                    <ListItemIcon className={classes.listItemIcons}>{
+                      index === 0 ? <FolderIcon /> : <FolderIcon /> ||
+                      index !== 0 ? <ReceiptIcon /> : <FolderIcon />
+                    }</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
@@ -154,7 +181,9 @@ function App() {
               <List>
                 {['Items', 'Customers', 'Suppliers'].map((text, index) => (
                   <ListItem button key={text}>
-                    <ListItemIcon>{index === 1 ? <AccountBoxIcon /> : <MailIcon />}</ListItemIcon>
+                  <ListItemIcon className={classes.listItemIcons}>{
+                    index === 0 ? <AccountBoxIcon /> : <FolderIcon />
+                  }</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItem>
                 ))}
@@ -165,9 +194,18 @@ function App() {
 
         </header>
 
+        <main className={classes.content}>
+          <div>
+            <div className={classes.breadcrumbsPositioning}>
+              <CustomizedBreadcrumbs />
+            </div>
+            <MaterialTableFull />
+          </div>
+        </main>
 
       </Container>
     </div>
+    </ThemeProvider>
   );
 }
 
