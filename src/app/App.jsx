@@ -31,6 +31,9 @@ import SearchIcon from '@material-ui/icons/Search';
 import FolderIcon from '@material-ui/icons/Folder';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+
 
 const drawerWidth = 240;
 
@@ -156,19 +159,6 @@ function App() {
                     <Typography className={classes.title} variant="h6" noWrap>
 
                     </Typography>
-                    <div className={classes.search}>
-                      <div className={classes.searchIcon}>
-                        <SearchIcon />
-                      </div>
-                      <InputBase
-                        placeholder="Search…"
-                        classes={{
-                          root: classes.inputRoot,
-                          input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                      />
-                    </div>
                   </Toolbar>
                 </AppBar>
 
@@ -221,23 +211,21 @@ function App() {
 
                 </div>
 
-                <div className="jumbotron">
-                    <div className="container">
-                        <div className="col-md-8 offset-md-2">
-                            {alert.message &&
-                                <div className={`alert ${alert.type}`}>{alert.message}</div>
-                            }
-                            <Router history={history}>
-                                <Switch>
-                                    <PrivateRoute exact path="/" component={HomePage} />
-                                    <Route path="/login" component={LoginPage} />
-                                    <Route path="/register" component={RegisterPage} />
-                                    <Redirect from="*" to="/" />
-                                </Switch>
-                            </Router>
-                        </div>
-                    </div>
-                </div>
+                <Card>
+                  <CardContent>
+                    {alert.message &&
+                      <div className={`alert ${alert.type}`}>{alert.message}</div>
+                    }
+                    <Router history={history}>
+                      <Switch>
+                        <PrivateRoute exact path="/" component={HomePage} />
+                        <Route path="/login" component={LoginPage} />
+                        <Route path="/register" component={RegisterPage} />
+                        <Redirect from="*" to="/" />
+                      </Switch>
+                    </Router>
+                  </CardContent>
+                </Card>
 
               </div>
             </main>

@@ -4,7 +4,29 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { userActions } from '../_actions';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      marginRight: theme.spacing(1),
+    },
+    '& .form-group button': {
+      marginRight: theme.spacing(1),
+    },
+    '& a': {
+      textDecoration: 'none',
+    },
+  },
+}));
+
 function LoginPage() {
+    const classes = useStyles();
     const [inputs, setInputs] = useState({
         username: '',
         password: ''
@@ -15,8 +37,8 @@ function LoginPage() {
     const dispatch = useDispatch();
 
     // reset login status
-    useEffect(() => { 
-        dispatch(userActions.logout()); 
+    useEffect(() => {
+        dispatch(userActions.logout());
     }, []);
 
     function handleChange(e) {
@@ -34,32 +56,55 @@ function LoginPage() {
     }
 
     return (
-        <div className="col-lg-8 offset-lg-2">
-            <h2>Login</h2>
-            <form name="form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" name="username" value={username} onChange={handleChange} className={'form-control' + (submitted && !username ? ' is-invalid' : '')} />
-                    {submitted && !username &&
-                        <div className="invalid-feedback">Username is required</div>
-                    }
-                </div>
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" value={password} onChange={handleChange} className={'form-control' + (submitted && !password ? ' is-invalid' : '')} />
-                    {submitted && !password &&
-                        <div className="invalid-feedback">Password is required</div>
-                    }
-                </div>
-                <div className="form-group">
-                    <button className="btn btn-primary">
-                        {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                        Login
-                    </button>
-                    <Link to="/register" className="btn btn-link">Register</Link>
-                </div>
-            </form>
-        </div>
+      <div className="">
+        <h2>Login</h2>
+          <form name="form" onSubmit={handleSubmit}>
+            <div className={classes.root}>
+
+              <div className="form-group">
+                <TextField
+                  id="outlined-basic"
+                  label="Username"
+                  variant="outlined"
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={handleChange}
+                  className={'form-control' + (submitted && !username ? ' is-invalid' : '')}
+                />
+                {submitted && !username &&
+                  <div className="invalid-feedback">Username is required</div>
+                }
+              </div>
+
+              <div className="form-group">
+                <TextField
+                  id="outlined-basic"
+                  label="Password"
+                  variant="outlined"
+                  type="text"
+                  name="password"
+                  value={password}
+                  onChange={handleChange}
+                  className={'form-control' + (submitted && !password ? ' is-invalid' : '')}
+                />
+                {submitted && !password &&
+                  <div className="invalid-feedback">Password is required</div>
+                }
+              </div>
+
+              <div className="form-group">
+                <Button variant="contained" color="primary" type="submit">
+                  {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                  Login
+                </Button>
+                <Button variant="outlined">
+                  <Link to="/register"> Register</Link>
+                </Button>
+              </div>
+            </div>
+        </form>
+      </div>
     );
 }
 
