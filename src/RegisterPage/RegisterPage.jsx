@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& a': {
       textDecoration: 'none',
-    },
+    }
   },
 }));
 
@@ -70,11 +70,9 @@ function RegisterPage() {
                     name="firstName"
                     value={user.firstName}
                     onChange={handleChange}
-                    className={'form-control' + (submitted && !user.firstName ? ' is-invalid' : '')}
+                    error={submitted && !user.firstName}
+                    helperText={submitted && !user.firstName ? 'First Name is required' : ' '}
                   />
-                {submitted && !user.firstName &&
-                    <div className="invalid-feedback">First Name is required</div>
-                  }
                 </div>
                 <div className="form-group">
                   <TextField
@@ -85,11 +83,9 @@ function RegisterPage() {
                     name="lastName"
                     value={user.lastName}
                     onChange={handleChange}
-                    className={'form-control' + (submitted && !user.lastName ? ' is-invalid' : '')}
+                    error={submitted && !user.lastName}
+                    helperText={submitted && !user.lastName ? 'Last Name is required' : ' '}
                   />
-                {submitted && !user.lastName &&
-                    <div className="invalid-feedback">Last Name is required</div>
-                  }
                 </div>
                 <div className="form-group">
                   <TextField
@@ -100,11 +96,9 @@ function RegisterPage() {
                     name="username"
                     value={user.username}
                     onChange={handleChange}
-                    className={'form-control' + (submitted && !user.username ? ' is-invalid' : '')}
+                    error={submitted && !user.username}
+                    helperText={submitted && !user.username ? 'Username is required' : ' '}
                   />
-                {submitted && !user.username &&
-                    <div className="invalid-feedback">Username is required</div>
-                  }
                 </div>
                 <div className="form-group">
                   <TextField
@@ -115,11 +109,9 @@ function RegisterPage() {
                     name="password"
                     value={user.password}
                     onChange={handleChange}
-                    className={'form-control' + (submitted && !user.password ? ' is-invalid' : '')}
+                    error={submitted && !user.password}
+                    helperText={submitted && !user.password ? 'Password is required' : ' '}
                   />
-                {submitted && !user.password &&
-                    <div className="invalid-feedback">Password is required</div>
-                  }
                 </div>
                 <div className="form-group">
                     <Button variant="contained" color="primary" type="submit">

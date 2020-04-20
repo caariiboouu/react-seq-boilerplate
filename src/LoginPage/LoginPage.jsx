@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     '& a': {
       textDecoration: 'none',
-    },
+    }
   },
 }));
 
@@ -70,11 +70,9 @@ function LoginPage() {
                   name="username"
                   value={username}
                   onChange={handleChange}
-                  className={'form-control' + (submitted && !username ? ' is-invalid' : '')}
+                  error={submitted && !username}
+                  helperText={submitted && !username ? 'Username is required' : ' '}
                 />
-                {submitted && !username &&
-                  <div className="invalid-feedback">Username is required</div>
-                }
               </div>
 
               <div className="form-group">
@@ -86,11 +84,9 @@ function LoginPage() {
                   name="password"
                   value={password}
                   onChange={handleChange}
-                  className={'form-control' + (submitted && !password ? ' is-invalid' : '')}
+                  error={submitted && !password}
+                  helperText={submitted && !password ? 'Password is required' : ' '}
                 />
-                {submitted && !password &&
-                  <div className="invalid-feedback">Password is required</div>
-                }
               </div>
 
               <div className="form-group">
